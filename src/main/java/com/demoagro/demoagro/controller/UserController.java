@@ -4,8 +4,7 @@ import com.demoagro.demoagro.model.User;
 import com.demoagro.demoagro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,20 +19,31 @@ public class UserController {
 
 
 
+        @RequestMapping(value = "api/user", method = RequestMethod.GET)
 
-    @RequestMapping(value = "api/user")
-    public List<User> GetUser() {
+        public List<User> GetUser() {
 
         return userService.getUser();
+}
+    @RequestMapping(value = "api/user", method = RequestMethod.POST)
+    public void registerUser(@RequestBody User user) {
+
+        userService.register(user);
     }
 
-    @RequestMapping (value = "user9")
-    public User GetUser9() {
-        User u9 = new User();
-        u9.setName("jorgue");
+
+    @CrossOrigin(origins ="file:///C:/Users/tolom/Documents/Proyectos%20Porgramacion/demoagro/src/main/resources/static/users.html" )
+    @RequestMapping(value = "api/users/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable Long id) {
 
 
-        return u9;
+        userService.eliminar(id);
     }
 
 }
+
+
+
+
+
+

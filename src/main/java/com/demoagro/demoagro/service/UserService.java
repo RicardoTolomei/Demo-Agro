@@ -10,4 +10,9 @@ public interface UserService {
    List<User> getUser();
 
 
+
+
+   void eliminar(Long id);
+
+   void register(User user);
 }

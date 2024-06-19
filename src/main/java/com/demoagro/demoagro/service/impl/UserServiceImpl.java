@@ -27,6 +27,17 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void eliminar(Long id) {
+        User u2 = entityManager.find(User.class, id);
+        entityManager.remove(u2);
+
+    }
+
+    @Override
+    public void register(User user) {
+        entityManager.merge(user);
+    }
 
 
 }
