@@ -6,7 +6,7 @@ $(document).ready(function() {
  async function registerUsers(){
  let datos = {};
  datos.name = document.getElementById("txtNombre").value
- datos.lastName = document.getElementById("txtApellido").value
+ datos.lastname = document.getElementById("txtApellido").value
  datos.email = document.getElementById("txtEmail").value
  datos.password = document.getElementById("txtPassword").value
 
