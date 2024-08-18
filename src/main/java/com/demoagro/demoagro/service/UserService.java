@@ -15,4 +15,6 @@ public interface UserService {
    void eliminar(Long id);
 
    void register(User user);
+
+   boolean verificarCredenciales(User user);
 }
