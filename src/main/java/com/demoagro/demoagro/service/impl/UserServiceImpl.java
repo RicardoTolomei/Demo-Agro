@@ -2,6 +2,8 @@ package com.demoagro.demoagro.service.impl;
 
 import com.demoagro.demoagro.model.User;
 import com.demoagro.demoagro.service.UserService;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -42,20 +44,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean verificarCredenciales(User user) {
 
-        String query = "FROM User WHERE email = :email AND password = :password";
+        String query = "FROM User WHERE email = :email ";
                 List<User> lista = entityManager.createQuery(query)
 
 
                         .setParameter(  "email", user.getEmail())
-                        .setParameter(  "password", user.getPassword())
                         .getResultList();
+                if (lista.isEmpty()) {return false;}
+                String passwordHashed = lista.get(0).getPassword();
+
+                        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+                             return  argon2.verify(passwordHashed,user.getPassword());
 
 
-        if (lista.isEmpty()) {
-            return false;
-        }else {
-            return true;
-        }
+
+
+
 
 
     }
