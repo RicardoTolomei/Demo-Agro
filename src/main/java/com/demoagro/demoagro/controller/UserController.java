@@ -2,6 +2,7 @@ package com.demoagro.demoagro.controller;
 
 import com.demoagro.demoagro.model.User;
 import com.demoagro.demoagro.service.UserService;
+import com.demoagro.demoagro.util.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class UserController {
 
     @Autowired
     private  UserService userService;
+    @Autowired
+    private JWTUtil jwtutil;
 
 
 

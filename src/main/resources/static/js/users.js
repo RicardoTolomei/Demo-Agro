@@ -8,12 +8,7 @@ cargarUsers();
 
    const request = await fetch('api/user', {
      method: 'GET',
-     headers: {
-       'Accept': 'application/json',
-       'Content-Type': 'application/json'
-
-}
-});
+     headers: getHeaders()
 
    const users = await request.json();
 
@@ -36,14 +31,17 @@ listadoHtml += userHtml;
      if (!confirm('¿Desea eliminar este usuario?')) {
        return;
      }
+     function getHeaders(){
+     return{
+     'Accept': 'application/json',
+     'Content-Type': 'application/json'
+     'Authorization': localStorage.token
+     }
+     }
 
     const request = await fetch('api/users/' + id, {
        method: 'DELETE',
-       headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-
-       }
+       headers: getHeaders()
      });
 
      location.reload()
