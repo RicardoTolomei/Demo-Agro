@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean verificarCredenciales(User user) {
+    public User obtenerUserPorCredenciales(User user) {
 
         String query = "FROM User WHERE email = :email ";
                 List<User> lista = entityManager.createQuery(query)
@@ -50,11 +50,18 @@ public class UserServiceImpl implements UserService {
 
                         .setParameter(  "email", user.getEmail())
                         .getResultList();
-                if (lista.isEmpty()) {return false;}
+                if (lista.isEmpty()) {return null;}
                 String passwordHashed = lista.get(0).getPassword();
 
                         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-                             return  argon2.verify(passwordHashed,user.getPassword());
+                             if(argon2.verify(passwordHashed,user.getPassword())){
+                                 return lista.get(0);
+                             }
+                             return null;
+
+    }
+
+
 
 
 
@@ -65,4 +72,4 @@ public class UserServiceImpl implements UserService {
     }
 
 
-}
+

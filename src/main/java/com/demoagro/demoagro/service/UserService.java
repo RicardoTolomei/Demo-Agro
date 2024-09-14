@@ -16,5 +16,5 @@ public interface UserService {
 
    void register(User user);
 
-   boolean verificarCredenciales(User user);
+   User obtenerUserPorCredenciales(User user);
 }
