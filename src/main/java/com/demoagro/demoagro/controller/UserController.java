@@ -20,15 +20,24 @@ public class UserController {
     @Autowired
     private  UserService userService;
     @Autowired
-    private JWTUtil jwtutil;
+    private JWTUtil jwtUtil;
 
 
 
         @RequestMapping(value = "api/user", method = RequestMethod.GET)
 
-        public List<User> GetUser() {
+        public List<User> GetUser(@RequestHeader(value="Authorization") String token) {
 
-        return userService.getUser();
+            if (!validarToken(token)) { return null; }
+
+            return userService.getUser();
+
+        }
+
+    private boolean validarToken(String token) {
+        String userId = jwtUtil.getKey(token);
+        return userId != null;
+
 }
     @RequestMapping(value = "api/user", method = RequestMethod.POST)
     public void registerUser(@RequestBody User user) {
@@ -42,13 +51,16 @@ public class UserController {
 
     @CrossOrigin(origins ="file:///C:/Users/tolom/Documents/Proyectos%20Porgramacion/demoagro/src/main/resources/static/users.html" )
     @RequestMapping(value = "api/users/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Long id) {
+    public void delete(@RequestHeader(value="Authorization") String token,
+                       @PathVariable Long id) {
 
-
+        if (!validarToken(token)) { return; }
         userService.eliminar(id);
     }
 
 }
+
+
 
 
 

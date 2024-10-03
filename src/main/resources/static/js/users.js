@@ -9,10 +9,10 @@ cargarUsers();
    const request = await fetch('api/user', {
      method: 'GET',
      headers: getHeaders()
+  });
+  const users = await request.json();
 
-   const users = await request.json();
 
-   console.log(users);
 
    let listadoHtml='';
    for(let user of users){
@@ -21,23 +21,21 @@ cargarUsers();
    let userHtml = ' <tr><td>'+user.id+'</td><td>'+user.name+''+user.lastname+'</td><td>'+user.email+'+</td><td>'+botonEliminar+'</td></tr>'
 listadoHtml += userHtml;
    }
-
-
-   document.querySelector('#users tbody').outerHTML = listadoHtml;
-}
-
-   async function eliminarUsuario(id) {
-
-     if (!confirm('¿Desea eliminar este usuario?')) {
-       return;
+     document.querySelector('#users tbody').outerHTML = listadoHtml;
      }
      function getHeaders(){
      return{
      'Accept': 'application/json',
-     'Content-Type': 'application/json'
+     'Content-Type': 'application/json',
      'Authorization': localStorage.token
-     }
-     }
+       };
+    }
+
+    async function eliminarUsuario(id) {
+
+         if (!confirm('¿Desea eliminar este usuario?')) {
+           return;
+         }
 
     const request = await fetch('api/users/' + id, {
        method: 'DELETE',
