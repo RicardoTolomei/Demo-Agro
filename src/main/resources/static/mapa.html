@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+</head>
+<body>
+<div id="map">
+
+
+</div>
+<script>
+
+    function initMap(){
+     var coord = {lat:-30.8763146,lng: -58.6530028};
+     var map = new google.maps.Map(document.getElementById('map'),{
+       zoom: 10,
+       center: coord
+     });
+     var marker = new google.maps.Marker({
+       position: coord,
+       map: map
+     });
+ }
+
+</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCut-_TSF22MAjQsPkAF6dh6G9DqSaFfXw&loading=async&callback=initMap"></script>
+
+</body>
+</html>
